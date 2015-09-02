@@ -1,0 +1,4 @@
+services:
+      rpc.client:
+            class: Timiki\RpcClientCommon\Client
+            arguments: [%rpc.client.address%, %rpc.client.options%, %rpc.client.type%, %locale%]
