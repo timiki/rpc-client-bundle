@@ -69,14 +69,15 @@ class RpcClient extends Client
     public function call($method, array $params = [], array $extra = [])
     {
         // Before run call need stop session
-        if ($this->container !== null) {
+        if ($this->getContainer() !== null) {
             $this->getContainer()->get('session')->save();
         }
 
+        // Call method
         $response = parent::call($method, $params, $extra);
 
         // After run call need restart session
-        if ($this->container !== null) {
+        if ($this->getContainer() !== null) {
             $this->getContainer()->get('session')->migrate();
         }
 
