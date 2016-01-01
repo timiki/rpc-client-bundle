@@ -1,4 +1,4 @@
 services:
       rpc.client:
             class: Timiki\Bundle\RpcClientBundle\RpcClient
-            arguments: [%rpc.client.address%, %rpc.client.options%, %rpc.client.type%, %locale%, @service_container]
+            arguments: [%rpc.client.address%, %rpc.client.options%, %rpc.client.type%, %locale%, '@service_container']
