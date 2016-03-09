@@ -32,11 +32,13 @@ class RpcClient extends Client
 	{
 		$this->setContainer($container);
 
-		$headers = (array)$options['headers'];
-		$cookies = (array)$options['cookies'];
+		$headers        = array_key_exists('headers', $options) ? $options['headers'] : [];
+		$cookies        = array_key_exists('cookies', $options) ? $options['cookies'] : [];
+		$forwardHeaders = array_key_exists('forwardHeaders', $options) ? $options['forwardHeaders'] : [];
+		$forwardCookies = array_key_exists('forwardCookies', $options) ? $options['forwardCookies'] : [];
 
-		if (is_array($options['forwardHeaders']) and !empty($options['forwardHeaders'])) {
-			foreach ($options['forwardHeaders'] as $header) {
+		if ($forwardHeaders) {
+			foreach ($forwardHeaders as $header) {
 				$headers[$header] = Request::createFromGlobals()->headers->get($header);
 				if (strtolower($header) == 'client-ip') {
 					$headers[$header] = [Request::createFromGlobals()->getClientIp()];
@@ -44,9 +46,9 @@ class RpcClient extends Client
 			}
 		}
 
-		if (is_array($options['forwardCookies']) and !empty($options['forwardCookies'])) {
+		if ($forwardCookies) {
 			foreach (Request::createFromGlobals()->cookies->all() as $name => $values) {
-				if (in_array($name, $options['forwardCookies'])) {
+				if (in_array($name, $forwardCookies)) {
 					$cookies[$name] = $values;
 				}
 			}
