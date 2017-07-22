@@ -2,27 +2,25 @@
   "name"       : "timiki/rpc-client-bundle",
   "type"       : "symfony-bundle",
   "description": "Timiki RPC client bundle for symfony",
-  "branches"   : [
-	"master"
+  "keywords"   : [
+    "rpc",
+    "json-rpc",
+    "bundle"
   ],
-  "tags"       : [
-	"1.0.0",
-	"1.1.0"
-  ],
-  "keywords"   : [],
+  "license"    : "MIT",
   "authors"    : [
-	{
-	  "name" : "Netesin N",
-	  "email": "nikita@netesin.ru"
-	}
+    {
+      "name" : "Netesin N",
+      "email": "nikita@netesin.ru"
+    }
   ],
   "require"    : {
-	"symfony/symfony"         : ">=2.7",
-	"timiki/rpc-client-common": ">=1.4"
+    "symfony/symfony"         : ">=2.7",
+    "timiki/rpc-client-common": ">=1.4"
   },
   "autoload"   : {
-	"psr-4": {
-	  "Timiki\\Bundle\\RpcClientBundle\\": ""
-	}
+    "psr-4": {
+      "Timiki\\Bundle\\RpcClientBundle\\": ""
+    }
   }
 }
