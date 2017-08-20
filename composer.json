@@ -15,8 +15,10 @@
     }
   ],
   "require"    : {
-    "symfony/symfony"         : ">=2.7",
-    "timiki/rpc-client-common": ">=1.4"
+    "symfony/dependency-injection": "^3.3",
+    "symfony/http-kernel"         : "^3.3",
+    "symfony/config"              : "^3.3",
+    "timiki/rpc-client"           : "dev-master"
   },
   "autoload"   : {
     "psr-4": {

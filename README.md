@@ -1,2 +1,3 @@
-# rpc-client-bundle
-RPC Client bundle
+JSON-RPC client bundle for symfony
+==================================
+
