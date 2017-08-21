@@ -47,18 +47,12 @@ class RpcClientExtension extends Extension
             );
         };
 
-        $defaultAddress = null;
-
-        foreach ((array)$config['connection'] as $key => $value) {
-            if (is_numeric($key)) {
-                $createClient($value['name'], $value['address']);
-            } elseif ($key === 'address') {
-                $defaultAddress = $value;
+        if (is_string($config['connection'])) {
+            $createClient(null, $config['connection']);
+        } elseif (is_array($config['connection'])) {
+            foreach ($config['connection'] as $key => $value) {
+                $createClient($key, $value);
             }
-        }
-
-        if (!empty($defaultAddress)) {
-            $createClient(null, $defaultAddress);
         }
     }
 }
