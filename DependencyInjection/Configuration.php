@@ -26,11 +26,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->variableNode('connect')
-                    ->info('Connect params or connect params list.')
-                    ->defaultValue(null)
-                ->end()
-                ->scalarNode('eventDispatcherId')
+                ->variableNode('connection')
+                    ->info('Connection params or connect params list.')
                     ->defaultValue(null)
                 ->end()
             ->end()
