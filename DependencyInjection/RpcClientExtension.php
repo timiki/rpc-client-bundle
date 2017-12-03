@@ -35,16 +35,17 @@ class RpcClientExtension extends Extension
          * @param $address
          */
         $createClient = function ($name, $address) use ($container) {
-            $container->setDefinition(
-                empty($name) ? 'rpc.client' : 'rpc.client.'.$name,
-                new Definition(
-                    Client::class,
-                    [
-                        $address,
-                        new Reference('rpc.client.event_dispatcher'),
-                    ]
-                )
+
+            $definition = new Definition(
+                Client::class,
+                [
+                    $address,
+                    new Reference('rpc.client.event_dispatcher'),
+                ]
             );
+
+            $definition->setPublic(true);
+            $container->setDefinition(empty($name) ? 'rpc.client' : 'rpc.client.'.$name, $definition);
         };
 
         if (is_string($config['connection'])) {
