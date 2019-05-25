@@ -26,6 +26,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('cache')
+                    ->defaultValue(null)
+                    ->info('Id cache service. Cache service must be instance of "Doctrine\Common\Cache\Cache".')
+                ->end()
                 ->variableNode('connection')
                     ->info('Connection params or connect params list.')
                     ->defaultValue(null)

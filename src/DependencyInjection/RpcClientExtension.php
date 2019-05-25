@@ -4,6 +4,7 @@ namespace Timiki\Bundle\RpcClientBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -38,16 +39,17 @@ class RpcClientExtension extends Extension
         /**
          * Client.
          *
-         * @param string $name
-         * @param string|array $address
+         * @param string       $name
+         * @param array|string $address
          */
-        $createClient = function ($name, $address) use ($container, $registry) {
+        $createClient = function ($name, $address) use ($container, $registry, $config) {
             $rpcClientId = empty($name) ? 'rpc.client' : 'rpc.client.'.$name;
             $definition = new Definition(
                 Client::class,
                 [
                     $address,
                     new Reference('rpc.client.event_dispatcher'),
+                    $config['cache'] ? new Reference($config['cache'], ContainerInterface::NULL_ON_INVALID_REFERENCE) : null,
                 ]
             );
 
