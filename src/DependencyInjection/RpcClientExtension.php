@@ -49,6 +49,7 @@ class RpcClientExtension extends Extension
                 [
                     $address,
                     new Reference('rpc.client.event_dispatcher'),
+                    $config['options'],
                     $config['cache'] ? new Reference($config['cache'], ContainerInterface::NULL_ON_INVALID_REFERENCE) : null,
                 ]
             );
