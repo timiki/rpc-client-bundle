@@ -17,7 +17,6 @@ class RpcClientRegistry
      * Add rpc client by name.
      *
      * @param string $name
-     * @param Client $rpcClient
      */
     public function add($name, Client $rpcClient)
     {
