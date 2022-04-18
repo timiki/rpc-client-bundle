@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Timiki\Bundle\RpcClientBundle\RpcClientRegistry;
 use Timiki\RpcClient\Client;
+use Timiki\RpcClient\ClientInterface;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -33,25 +34,32 @@ class RpcClientExtension extends Extension
 
         /**
          * Client.
-         *
-         * @param string       $name
-         * @param array|string $address
          */
-        $createClient = function ($name, $address) use ($container, $registry, $config) {
-            $rpcClientId = empty($name) ? 'rpc.client' : 'rpc.client.'.$name;
+        $createClient = function (?string $name, string $address) use ($container, $registry, $config) {
+            $serviceId = empty($name) ? 'rpc.client' : 'rpc.client.'.$name;
+            $clientName = $name ?? 'rpc.client';
+
+            if (empty($name)) {
+                $varName = '$rpcClient';
+            } else {
+                $varName = '$'.lcfirst(str_replace(['.', '-', '_'], '', ucwords($name, '._-'))).'RpcClient';
+            }
+
             $definition = new Definition(
                 Client::class,
                 [
                     $address,
-                    new Reference('event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE),
                     $config['options'],
-                    $config['cache'] ? new Reference($config['cache'], ContainerInterface::NULL_ON_INVALID_REFERENCE) : null,
                 ]
             );
 
+            $definition->addMethodCall('setEventDispatcher', [new Reference('event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE)]);
             $definition->setPublic(true);
-            $container->setDefinition($rpcClientId, $definition);
-            $registry->addMethodCall('add', [$name, new Reference($rpcClientId)]);
+
+            $container->setDefinition($serviceId, $definition);
+            $container->setAlias(ClientInterface::class.' '.$varName, $serviceId);
+
+            $registry->addMethodCall('add', [$clientName, new Reference($serviceId)]);
         };
 
         if (\is_string($config['connection'])) {

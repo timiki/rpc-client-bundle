@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('cache')
                     ->defaultValue(null)
                     ->info('Id cache service. Cache service must be instance of "Doctrine\Common\Cache\Cache".')
+                    ->setDeprecated('timiki/rpc-client-bundle', '5.0', 'cache params is not use, delete it')
                 ->end()
                 ->variableNode('options')
                     ->defaultValue([])
