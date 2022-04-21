@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('rpc_client');
         $rootNode = $treeBuilder->getRootNode();
@@ -26,14 +26,17 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('cache')
-                    ->defaultValue(null)
-                    ->info('Id cache service. Cache service must be instance of "Doctrine\Common\Cache\Cache".')
-                    ->setDeprecated('timiki/rpc-client-bundle', '5.0', 'cache params is not use, delete it')
-                ->end()
                 ->variableNode('options')
                     ->defaultValue([])
                     ->info('RPC Client options.')
+                ->end()
+                ->variableNode('http_options')
+                    ->defaultValue(
+                        [
+                            'verify' => false,
+                        ]
+                    )
+                    ->info('Http client options.')
                 ->end()
                 ->variableNode('connection')
                     ->info('Connection params or connect params list.')

@@ -2,6 +2,8 @@
 
 namespace Timiki\Bundle\RpcClientBundle\DependencyInjection;
 
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\ClientInterface as HttpClientInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
@@ -27,6 +29,15 @@ class RpcClientExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         /**
+         * Http client.
+         */
+        $httpClient = new Definition(HttpClient::class, (array) $config['http_options']);
+        $httpClient->setPublic(true);
+
+        $container->setDefinition('rpc.client.http', $httpClient);
+        $container->setAlias(HttpClientInterface::class.' $rpcHttpClient', 'rpc.client.http');
+
+        /**
          * Registry.
          */
         $registry = new Definition(RpcClientRegistry::class);
@@ -50,6 +61,7 @@ class RpcClientExtension extends Extension
                 [
                     $address,
                     $config['options'],
+                    new Reference('rpc.client.http'),
                 ]
             );
 
