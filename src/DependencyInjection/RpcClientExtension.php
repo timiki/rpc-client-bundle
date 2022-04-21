@@ -31,7 +31,7 @@ class RpcClientExtension extends Extension
         /**
          * Http client.
          */
-        $httpClient = new Definition(HttpClient::class, (array) $config['http_options']);
+        $httpClient = new Definition(HttpClient::class, [(array) $config['http_options']]);
         $httpClient->setPublic(true);
 
         $container->setDefinition('rpc.client.http', $httpClient);
