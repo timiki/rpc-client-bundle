@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Timiki\Bundle\RpcClientBundle;
 
 use Timiki\RpcClient\ClientInterface;

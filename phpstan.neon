@@ -1,4 +1,5 @@
 parameters:
+	level: 5
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		- '#Call to an undefined method Symfony\\Component\\EventDispatcher\\Event::.*#'

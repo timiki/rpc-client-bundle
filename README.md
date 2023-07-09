@@ -1,4 +1,4 @@
-JSON-RPC client bundle for symfony
+JSON-RPC Client bundle for symfony
 ==================================
 
 ## Version

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Timiki\Bundle\RpcClientBundle\DependencyInjection;
 
 use GuzzleHttp\Client as HttpClient;
@@ -13,17 +15,9 @@ use Timiki\Bundle\RpcClientBundle\RpcClientRegistry;
 use Timiki\RpcClient\Client;
 use Timiki\RpcClient\ClientInterface;
 
-/**
- * This is the class that loads and manages your bundle configuration.
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
- */
 class RpcClientExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
