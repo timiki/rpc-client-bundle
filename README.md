@@ -3,6 +3,12 @@ JSON-RPC Client bundle for symfony
 
 ## Version
 
+Symfony >= 7 use version ^7.0
+
+```bash
+composer require timiki/rpc-client-bundle "^7.0"
+```
+
 Symfony >= 6 use version ^6.0
 
 ```bash
